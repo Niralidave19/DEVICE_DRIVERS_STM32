@@ -32,7 +32,7 @@ In STM32 F446RE,
 
 ### Dive into the Architecture and how GPIOS are activated 
 AHB1 Bus of the controller is connected to GPIO peripherals. Address range for which AHB1 bus is connected: 0x4002000 - 0x4007FFFF
-All the GPIO ports are connected to the AHB1 Bus of the controller. Hence to enable any sort of communication with the port, the AHB1 bus clock needs to be activated.
+All the GPIO ports are connected to the AHB1 Bus of the controller. The clock to the GPIO port is activated by altering the specific bit of the RCC register. 
 ## GPIO Port & Base Address Table (STM32F4 Series)
 
 | GPIO Port | Base Address | Bus   | 
