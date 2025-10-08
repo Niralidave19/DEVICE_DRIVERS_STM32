@@ -7,7 +7,7 @@
 
 #include"stm32f446xx.h"
 #include<stdint.h>
-#include <stddef.h>
+#include<stddef.h>
 #include"gpio_types.h"
 #include"gpio_macros.h"
 
@@ -15,11 +15,12 @@
 #define GPIO_PROTO_H_
 #endif
 
-/* GPIO_Clock(uint8_t enordis, gpio_port_def_t GPIO_ID)
- * Description: To enable/disable clock for a specific GPIO Port
+/****************GPIO_Clock(uint8_t enordis, gpio_port_def_t GPIO_ID)**********
+ * Description: To enable/disable clock for a specific GPIO Port***************
  * Parameters : uint8_t enordis : denotes if the clock must be enabled/disabled
  *              gpio_port_def_t GPIO_ID : Specific Port ID for which clock needs
- *              to be enabled or disabled */
+ *              to be enabled or disabled 
+ * ***************************************************************************/
 void GPIO_Clock(gpio_port_def_t GPIO_ID,gpio_enable_t enordis){
 	if(enordis == 1){
 		switch (GPIO_ID){
@@ -79,10 +80,11 @@ void GPIO_Clock(gpio_port_def_t GPIO_ID,gpio_enable_t enordis){
 	}
 }
 
-/* Function   : GPIO_GetPort(gpio_port_def_t GPIO_ID)
+/***********************GPIO_GetPort(gpio_port_def_t GPIO_ID)************************
  * Description: Returns a pointer, pointing to the base address of the GPIOX register
  * Parameters : gpio_port_def_t GPIO_ID : Specific Port ID for which the base address
- *              is returned */
+ *              is returned 
+ * *********************************************************************************/
 volatile GPIO_Reg_def_t* GPIO_GetPort(gpio_port_def_t GPIO_ID){
 	switch (GPIO_ID){
 	case GPIO_ID_A:
@@ -105,11 +107,10 @@ volatile GPIO_Reg_def_t* GPIO_GetPort(gpio_port_def_t GPIO_ID){
 	return NULL;
 }
 
-/* Function   : GPIO_Init(gpio_port_def_t GPIO_ID,uint8_t GPIO_PinNumber,uint8_t GPIO_PinMode,
-			    uint8_t GPIO_PinSpeed, uint8_t GPIO_pullup_down_control, uint8_t GPIO_PinOpType,
-		        uint8_t GPIO_AltFunMode )
- * Description: Initialize GPIO Port */
-
+/***************GPIO_Init(gpio_config_t gpio)******************************************************
+ * Description: Initialize GPIO Port
+ * Prameters : gpio_config_t gpio : This is the GPIO pin configuration that has to be initialised 
+ * ***********************************************************************************************/
 void GPIO_Init(gpio_config_t gpio){
 
 	uint32_t temp = 0;
@@ -118,11 +119,8 @@ void GPIO_Init(gpio_config_t gpio){
 	volatile GPIO_Reg_def_t *pGPIOx = GPIO_GetPort(gpio.port_id);
 
 	/*Set the mode of the GPIO Pin - MODER REGISTER*/
-	//temp = temp | (gpio.mode << (gpio.pin_number *2));
 	pGPIOx->gpio_moder &= ~(3 << (gpio.pin_number * 2));
 	pGPIOx->gpio_moder |= (gpio.mode << (gpio.pin_number * 2));
-	//pGPIOx->gpio_moder = pGPIOx->gpio_moder | temp;
-
 
 	/*set the output speed of the pin*/
 	temp = 0;
@@ -159,22 +157,11 @@ void GPIO_Init(gpio_config_t gpio){
 		pGPIOx->gpio_afrh = pGPIOx->gpio_afrh | temp;
 	}
 }
-/*
-void GPIO_Deinit(GPIO_Reg_def_t *pGPIO)
-{
-	if(pGPIO == GPIOA)
-	{
-		//de-init GPIO A
-		gpioA_clock_disable();
-	}
-	if(pGPIO == GPIOB)
-	{
-		//de-init GPIO B
-		gpioB_clock_disable();
-	}
-}
-*/
 
+/***************delay(uint16_t time)*************************************************************
+ * Description: Delay function
+ * Prameters : uint16_t time : The duration of delay 
+ * ***********************************************************************************************/
 void delay(uint16_t time){
 	while(time!=0)
 	{
@@ -182,13 +169,22 @@ void delay(uint16_t time){
 	}
 }
 
+/************GPIO_ReadfromInput_pin(GPIO_Reg_def_t *pGPIOx,uint8_t GPIO_PinNumber)**
+ * Description: Returns 1 byte of data read from the Input Data Register
+ * Parameters : GPIO_Reg_def_t pGPIOx : The GPIO port 
+ * 				uint8_t GPIO_PinNumber
+ * *********************************************************************************/
 uint8_t GPIO_ReadfromInput_pin(GPIO_Reg_def_t *pGPIOx,uint8_t GPIO_PinNumber){
 	uint8_t temp=0;
 	temp = ((pGPIOx->gpio_idr)>>(GPIO_PinNumber))&1;
 	return temp;
 }
 
-
+/************GPIO_WritetoPin(gpio_config_t gpio,uint8_t value)**********************
+ * Description: Returns 1 byte of data read from the Input Data Register
+ * Parameters : GPIO_Reg_def_t pGPIOx : The GPIO port 
+ * 				uint8_t GPIO_PinNumber
+ * *********************************************************************************/
 uint8_t GPIO_WritetoPin(gpio_config_t gpio,uint8_t value){
 	/* Get the GPIO register for the GPIO_ID */
 	volatile GPIO_Reg_def_t *pGPIOx = GPIO_GetPort(gpio.port_id);
