@@ -45,15 +45,16 @@ Each port has 10 registers : 6 Control registers, 2 data registers , 1 I/O bit h
 | GPIOG     | `0x40021800` | AHB1  |       
 | GPIOH     | `0x40021C00` | AHB1  |           
 
-| Control Register|            
-|-----------------|                     
-| GPIOx_MODER     |                 
-| GPIOx_OTYPER    |       
+| Control Register|      | Data Register |    
+|-----------------|      |---------------|            
+| GPIOx_MODER     |      |   GPIOx_IDR   |        
+| GPIOx_OTYPER    |      |   GPIOx_ODR   |
 | GPIOx_OSPEEDR   |   
 | GPIOx_PUPDR     |
 | GPIOx_AFRL      |
 | GPIOx_AFRH      |
 | GPIOx_LCKR      |
+
 
 |  Data Register  | 
 |-----------------|
