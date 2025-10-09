@@ -36,16 +36,29 @@ All the GPIO ports are connected to the AHB1 Bus of the controller. The clock to
 | GPIO Port | Base Address | Bus   | RCC |  
 |-----------|--------------|-------|-----|    ----> Each port has 10 registers : 6 Control registers, 2 data registers , 1 I/O bit handling atomic R/W register 
 | GPIOA     | `0x40020000` | AHB1  |     |  
-| GPIOB     | `0x40020400` | AHB1  |     |        |Control Registers|       | Data Register |          | I/O Atomic R/W |
-| GPIOC     | `0x40020800` | AHB1  |     |        |-----------------|       |---------------|          |----------------|    
-| GPIOD     | `0x40020C00` | AHB1  |     |        | GPIOx_MODER     |       |   GPIOx_IDR   |          |   GPIOx_BSRR   |
-| GPIOE     | `0x40021000` | AHB1  |     |        | GPIOx_OTYPER    |       |   GPIOx_ODR   |
-| GPIOF     | `0x40021400` | AHB1  |     |        | GPIOx_OSPEEDR   |   
-| GPIOG     | `0x40021800` | AHB1  |     |        | GPIOx_PUPDR     |
-| GPIOH     | `0x40021C00` | AHB1  |     |        | GPIOx_AFRL      |
-                                                  | GPIOx_AFRH      |
-                                                  | GPIOx_LCKR      |
+| GPIOB     | `0x40020400` | AHB1  |     |       
+| GPIOC     | `0x40020800` | AHB1  |     |       
+| GPIOD     | `0x40020C00` | AHB1  |     |           
+| GPIOE     | `0x40021000` | AHB1  |     |       
+| GPIOF     | `0x40021400` | AHB1  |     |      
+| GPIOG     | `0x40021800` | AHB1  |     |       
+| GPIOH     | `0x40021C00` | AHB1  |     |        
 
+| Control Register|            
+|-----------------|                     
+| GPIOx_MODER     |                 
+| GPIOx_OTYPER    |       
+| GPIOx_OSPEEDR   |   
+| GPIOx_PUPDR     |
+| GPIOx_AFRL      |
+| GPIOx_AFRH      |
+| GPIOx_LCKR      |
 
+|  Data Register  | 
+|-----------------|
+|   GPIOx_IDR     |
+|   GPIOx_ODR     |
 
-
+| I/O Atomic R/W  |
+|-----------------|
+|   GPIOx_BSRR    |
