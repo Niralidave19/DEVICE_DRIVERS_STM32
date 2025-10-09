@@ -64,7 +64,7 @@ Each port has 10 registers : 7 Control registers, 2 data registers , 1 I/O bit h
 |-----------------|---------------------|----------------------------------------------------------------------------|
 |   GPIOx_IDR     | Input Data Register |Captures the logic level present on the GPIO pins configured as inputs.     |
 |                 |                     |The CPU reads this register to know whether the pin is high (1) or low (0). |
-----------------------------------------|----------------------------------------------------------------------------|
+|                 |                     |                                                                            |
 |   GPIOx_ODR     | Output Data Register|Holds the logic value to be driven on GPIO pins configured as outputs.      | 
 |                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
 
