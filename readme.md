@@ -31,18 +31,19 @@ In STM32 F446RE,
 
 ### Dive into the Architecture and how GPIOS are activated 
 AHB1 Bus of the controller is connected to GPIO peripherals. Address range for which AHB1 bus is connected: 0x4002000 - 0x4007FFFF
-All the GPIO ports are connected to the AHB1 Bus of the controller. The clock to the GPIO port is activated by altering the specific bit of the RCC register. 
+All the GPIO ports are connected to the AHB1 Bus of the controller. The clock to the GPIO port is activated by altering the specific bit of the RCC register.
+Each port has 10 registers : 6 Control registers, 2 data registers , 1 I/O bit handling atomic R/W register 
 ## GPIO Port Base Addresses (STM32F4 Series)
-| GPIO Port | Base Address | Bus   | RCC |  
-|-----------|--------------|-------|-----|    ----> Each port has 10 registers : 6 Control registers, 2 data registers , 1 I/O bit handling atomic R/W register 
-| GPIOA     | `0x40020000` | AHB1  |     |  
-| GPIOB     | `0x40020400` | AHB1  |     |       
-| GPIOC     | `0x40020800` | AHB1  |     |       
-| GPIOD     | `0x40020C00` | AHB1  |     |           
-| GPIOE     | `0x40021000` | AHB1  |     |       
-| GPIOF     | `0x40021400` | AHB1  |     |      
-| GPIOG     | `0x40021800` | AHB1  |     |       
-| GPIOH     | `0x40021C00` | AHB1  |     |        
+| GPIO Port | Base Address | Bus   |   
+|-----------|--------------|-------|   
+| GPIOA     | `0x40020000` | AHB1  |  
+| GPIOB     | `0x40020400` | AHB1  |       
+| GPIOC     | `0x40020800` | AHB1  |      
+| GPIOD     | `0x40020C00` | AHB1  |           
+| GPIOE     | `0x40021000` | AHB1  |       
+| GPIOF     | `0x40021400` | AHB1  |     
+| GPIOG     | `0x40021800` | AHB1  |       
+| GPIOH     | `0x40021C00` | AHB1  |           
 
 | Control Register|            
 |-----------------|                     
