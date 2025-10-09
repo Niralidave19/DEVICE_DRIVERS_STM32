@@ -50,19 +50,23 @@ Each port has 10 registers : 7 Control registers, 2 data registers , 1 I/O bit h
 ## Control Registers
 - GPIOx_MODER: Register hold the information about the I/O configuration of the pin. 
 //add the image of the MODER Register , and highlight the Bit position to be altered if we are configuring I/O for pin number 1.
-- GPIOx_OTYPER : To select an output configuration - Push Pull or Open Drain config.
+- GPIOx_OTYPER : To select an output configuration - Push Pull or Open Drain config. This is used when we configure the pin as Output.
 - GPIOx_SPEEDR : To configure the I/O speed.
-- GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
-
+- GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration. This is used when we configure the pin as Input.
+- GPIOx_AFLR   : To configure the I/O pin with an alternate functionailty. The Alternate functionality low register, will configure the functionalities for the first 8 pins of the GPIO port.
+- GPIOx_AFHR   : To configure the I/O pin with an alternate functionailty. The Alternate functionality high register, will configure the functionalities for pins 8 - 16 pins of the GPIO port.
+//add image of the AFLR and AFHR   
 ## Data Registers
-- GPIOx_IDR : Input Data Register - Read only registers, which is read by the processor to get an input from an external source. 
-Example: A button is set as an input to one of the GPIO pins, whose IDR reset value is 0. When the button is pressed, IDR captures the value to be 1. The processor reads this register value for further processing,
-- GPIOx_ODR : Output Data Register - The 
+- GPIOx_IDR : Input Data Register - Captures the logic level present on the GPIO pins configured as inputs. The CPU reads this register to know whether the pin is high (1) or low (0). Example: A button is set as an input to one of the GPIO pins, whose IDR reset value is 0. When the button is pressed, IDR captures the value to be 1. 
+- GPIOx_ODR : Output Data Register - Holds the logic value to be driven on GPIO pins configured as outputs. Writing 1 or 0 here sets the output level on the corresponding pin
 
-|  Data Register  | 
-|-----------------|
-|   GPIOx_IDR     |
-|   GPIOx_ODR     |
+|  Data Register  |      Function       |                Description                                                 |
+|-----------------|---------------------|----------------------------------------------------------------------------|
+|   GPIOx_IDR     | Input Data Register |Captures the logic level present on the GPIO pins configured as inputs.     |
+|                 |                     |The CPU reads this register to know whether the pin is high (1) or low (0). |
+----------------------------------------|----------------------------------------------------------------------------|
+|   GPIOx_ODR     | Output Data Register|Holds the logic value to be driven on GPIO pins configured as outputs.      | 
+|                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
 
 ## I/O Atomic R/W
 | I/O Atomic R/W  |
