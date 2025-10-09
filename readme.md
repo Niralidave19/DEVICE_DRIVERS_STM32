@@ -12,7 +12,7 @@ Currently this repo holds Device Driver implementation for GPIO and USART.
 - To create **modular, reusable drivers** (GPIO, USART, SPI, I²C, Timers, etc.) as a learning base for future embedded projects  
 ---
 
-## 🛠 Getting Started  
+## Getting Started  
 
 ### Prerequisites  
 
@@ -55,7 +55,7 @@ Each port has 10 registers : 7 Control registers, 2 data registers , 1 I/O bit h
 - GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration. This is used when we configure the pin as Input.
 - GPIOx_AFLR   : To configure the I/O pin with an alternate functionailty. The Alternate functionality low register, will configure the functionalities for the first 8 pins of the GPIO port.
 - GPIOx_AFHR   : To configure the I/O pin with an alternate functionailty. The Alternate functionality high register, will configure the functionalities for pins 8 - 16 pins of the GPIO port.
-## 🧭 GPIO Control Registers
+## GPIO Control Registers
 
 | Control Register        | Function                                | Description                                                                                                                                                                                                 |
 |--------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -79,8 +79,3 @@ Each port has 10 registers : 7 Control registers, 2 data registers , 1 I/O bit h
 |                 |                     |                                                                            |
 |   GPIOx_ODR     | Output Data Register|Holds the logic value to be driven on GPIO pins configured as outputs.      | 
 |                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
-
-## I/O Atomic R/W
-| I/O Atomic R/W  |
-|-----------------|
-|   GPIOx_BSRR    |
