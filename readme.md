@@ -53,6 +53,7 @@ GPIOx_MODER: Register hold the information about the I/O configuration of the pi
 GPIOx_OTYPER : To select an output configuration - Push Pull or Open Drain config.
 GPIOx_SPEEDR : To configure the I/O speed.
 GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
+
 | Control Register| 
 |-----------------|                    
 | GPIOx_MODER     |       
@@ -67,6 +68,7 @@ GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
 GPIOx_IDR : Input Data Register - Read only registers, which is read by the processor to get an input from an external source. 
 Example: A button is set as an input to one of the GPIO pins, whose IDR reset value is 0. When the button is pressed, IDR captures the value to be 1. The processor reads this register value for further processing,
 GPIOx_ODR : Output Data Register - The 
+
 |  Data Register  | 
 |-----------------|
 |   GPIOx_IDR     |
