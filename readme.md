@@ -48,11 +48,11 @@ All the GPIO ports are connected to the AHB1 Bus of the controller and the clock
 Each port has 10 registers : 7 Control registers, 2 data registers , 1 I/O bit handling atomic R/W register.
 
 ## Control Registers
-GPIOx_MODER: Register hold the information about the I/O configuration of the pin. 
+- GPIOx_MODER: Register hold the information about the I/O configuration of the pin. 
 //add the image of the MODER Register , and highlight the Bit position to be altered if we are configuring I/O for pin number 1.
-GPIOx_OTYPER : To select an output configuration - Push Pull or Open Drain config.
-GPIOx_SPEEDR : To configure the I/O speed.
-GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
+- GPIOx_OTYPER : To select an output configuration - Push Pull or Open Drain config.
+- GPIOx_SPEEDR : To configure the I/O speed.
+- GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
 
 | Control Register| 
 |-----------------|                    
@@ -65,9 +65,9 @@ GPIOx_PUPDR  : To configure I/O to pull up or pull down configuration.
 | GPIOx_LCKR      |
 
 ## Data Registers
-GPIOx_IDR : Input Data Register - Read only registers, which is read by the processor to get an input from an external source. 
+- GPIOx_IDR : Input Data Register - Read only registers, which is read by the processor to get an input from an external source. 
 Example: A button is set as an input to one of the GPIO pins, whose IDR reset value is 0. When the button is pressed, IDR captures the value to be 1. The processor reads this register value for further processing,
-GPIOx_ODR : Output Data Register - The 
+- GPIOx_ODR : Output Data Register - The 
 
 |  Data Register  | 
 |-----------------|
