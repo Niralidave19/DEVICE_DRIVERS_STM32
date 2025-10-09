@@ -45,6 +45,9 @@ All the GPIO ports are connected to the AHB1 Bus of the controller and the clock
 | GPIOG     | `0x40021800` | AHB1  |       
 | GPIOH     | `0x40021C00` | AHB1  |           
 
+RCC_AHB1ENR Register:
+<img width="952" height="145" alt="image" src="https://github.com/user-attachments/assets/58c1e939-5ed2-4a15-8eef-e4b17be59116" />
+
 Each port has 10 registers : 8 Control registers, 2 data registers.
 ## GPIO Control Registers
 | Control Register        | Function                                | Description                                                                                                                                                                                                 |
@@ -56,6 +59,7 @@ Each port has 10 registers : 8 Control registers, 2 data registers.
 | `GPIOx_AFRL` / `AFRH`   | Alternate Function Registers (Low/High)   | Selects the **alternate function mapping** for each pin when configured in Alternate Function mode. `AFRL` for pins 0–7 and `AFRH` for pins 8–15.                                                            |
 | `GPIOx_BSRR`           | Bit Set/Reset Register                    | Allows **atomic set or reset** of output pins. Writing `1` to bits 0–15 sets the pin; writing `1` to bits 16–31 resets the pin. Prevents race conditions.                                                     |
 | `GPIOx_LCKR`           | Configuration Lock Register               | Locks the configuration of the GPIO pins until the next reset. Prevents accidental changes to critical pins after setup.                                                                                    |
+
 //add an image and explain MODER reg
 //add image of the AFLR and AFHR   
 ## Data Registers
