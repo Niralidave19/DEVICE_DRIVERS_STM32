@@ -36,6 +36,7 @@ All the GPIO ports are connected to the AHB1 Bus of the controller and the clock
 RCC_AHB1ENR Register:
 If Pin 1 of GPIO Port is connected to an I/O interface, then in the RCC register GPIOAEN bit should be set to 1. 
 Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we would require to enable the clock for GPIOA. (Clock is enabled for the Port and not for I/O pin)
+
 <img width="952" height="145" alt="image" src="https://github.com/user-attachments/assets/58c1e939-5ed2-4a15-8eef-e4b17be59116" />
 
 ## GPIO Port Base Addresses (STM32F4 Series) 
