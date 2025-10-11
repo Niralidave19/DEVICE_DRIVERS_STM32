@@ -30,14 +30,15 @@ In STM32 F446RE,
 - Each Port has 16 I/O pins. In total, 128 I/O pins are available. 
 
 ### Dive into the Architecture and how GPIOS are activated 
-AHB1 Bus of the controller is connected to GPIO peripherals. Address range for which AHB1 bus is connected: 0x4002000 - 0x4007FFFF
-All the GPIO ports are connected to the AHB1 Bus of the controller and the clock to the GPIO port is activated by altering the specific bit of the RCC register.
+#### Where do these GPIO peripherals sit in F446RE??
+    AHB1 Bus of the controller is connected to GPIO peripherals. Address range for which AHB1 bus is connected: 0x4002000 - 0x4007FFFF
+    All the GPIO ports are connected to the AHB1 Bus of the controller and the clock to the GPIO port is activated by altering the specific bit of the RCC register.
+#### Activation of these peripherals
+    RCC_AHB1ENR Register:
+    If Pin 1 of GPIO Port is connected to an I/O interface, then in the RCC register GPIOAEN bit should be set to 1. 
+    Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we would require to enable the clock for GPIOA. (Clock is enabled for the Port and not for I/O pin)
 
-RCC_AHB1ENR Register:
-If Pin 1 of GPIO Port is connected to an I/O interface, then in the RCC register GPIOAEN bit should be set to 1. 
-Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we would require to enable the clock for GPIOA. (Clock is enabled for the Port and not for I/O pin)
-
-<img width="952" height="145" alt="image" src="https://github.com/user-attachments/assets/58c1e939-5ed2-4a15-8eef-e4b17be59116" />
+    <img width="952" height="145" alt="image" src="https://github.com/user-attachments/assets/58c1e939-5ed2-4a15-8eef-e4b17be59116" />
 
 ## GPIO Port Base Addresses (STM32F4 Series) 
 | GPIO Port | Base Address | Bus   |   
@@ -52,6 +53,9 @@ Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we woul
 | GPIOH     | `0x40021C00` | AHB1  |           
 
 Each port has 10 registers : 8 Control registers, 2 data registers.
+## Configuring a GPIO Pin
+While configuring a given pin as a GPIO pin, the software needs to initialise the control registers accordingly. This will enable the GPIO pin as an Input configuration mode, Output configuration mode, Analog Mode or Alternate functionality mode based on developers choice and activate the clock to the specific GPIO Port as well. 
+
 ## GPIO Control Registers
 | Control Register        | Function                                | Description                                                                                                                                                                                                 |
 |--------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -67,7 +71,6 @@ GPIOx_MODER Register:
 If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first two bits of GPIOA_MODER register has to be set to 01
 <img width="982" height="218" alt="image" src="https://github.com/user-attachments/assets/7d3ecdf2-1cab-4aa7-9b7c-0eaac8340ee1" />
 
-//add image of the AFLR and AFHR   
 ## Data Registers
 |  Data Register  |      Function       |                Description                                                 |
 |-----------------|---------------------|----------------------------------------------------------------------------|
