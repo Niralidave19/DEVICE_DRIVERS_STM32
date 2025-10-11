@@ -63,7 +63,10 @@ Each port has 10 registers : 8 Control registers, 2 data registers.
 | `GPIOx_BSRR`           | Bit Set/Reset Register                    | Allows **atomic set or reset** of output pins. Writing `1` to bits 0–15 sets the pin; writing `1` to bits 16–31 resets the pin. Prevents race conditions.                                                     |
 | `GPIOx_LCKR`           | Configuration Lock Register               | Locks the configuration of the GPIO pins until the next reset. Prevents accidental changes to critical pins after setup.                                                                                    |
 
-//add an image and explain MODER reg
+GPIOx_MODER Register:
+If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first two bits of GPIOA_MODER register has to be set to 01
+<img width="982" height="218" alt="image" src="https://github.com/user-attachments/assets/7d3ecdf2-1cab-4aa7-9b7c-0eaac8340ee1" />
+
 //add image of the AFLR and AFHR   
 ## Data Registers
 |  Data Register  |      Function       |                Description                                                 |
