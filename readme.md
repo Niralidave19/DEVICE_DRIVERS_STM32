@@ -80,4 +80,10 @@ If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first t
 |   GPIOx_ODR     | Output Data Register|Holds the logic value to be driven on GPIO pins configured as outputs.      | 
 |                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
 
+### Is this an Atomic Operation??
+- No, reading from the GPIOx_IDR and writing into GPIOx_ODR is an non-atomic operation.
+  This means the CPU performs two separate steps:
+  1. **Read** the current state of the input register.
+  2. **Write** the result into the output register.
+  3. If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions. 
 
