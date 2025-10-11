@@ -89,6 +89,3 @@ This means the CPU performs two separate steps:
 STM32 provides a Bit Set/Reset Register (BSSR) to perform atomic operation.
   - Writing into this register directly sets/resets the value.
   - It doesn't require writing into ODR, hence race condition is avoided.
-
-
-
