@@ -81,9 +81,9 @@ If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first t
 |                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
 
 ### Is this an Atomic Operation??
-- No, reading from the GPIOx_IDR and writing into GPIOx_ODR is an non-atomic operation.
-  This means the CPU performs two separate steps:
-   - **Read** the current state of the input register.
-   - **Write** the result into the output register.
-   - If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions. 
+No, reading from the GPIOx_IDR and writing into GPIOx_ODR is an non-atomic operation.
+This means the CPU performs two separate steps:
+  - **Read** the current state of the input register.
+  - **Write** the result into the output register.
+  - If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions. 
 
