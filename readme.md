@@ -68,7 +68,7 @@ While configuring a given pin as a GPIO pin, the software needs to initialise th
 | `GPIOx_LCKR`           | Configuration Lock Register               | Locks the configuration of the GPIO pins until the next reset. Prevents accidental changes to critical pins after setup.                                                                                    |
 
 GPIOx_MODER Register:
-If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first two bits of GPIOA_MODER register has to be set to 01
+If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first two bits of GPIOA_MODER register has to be set to 01.
 <img width="982" height="218" alt="image" src="https://github.com/user-attachments/assets/7d3ecdf2-1cab-4aa7-9b7c-0eaac8340ee1" />
 
 ## Data Registers
@@ -85,6 +85,15 @@ No, reading from the GPIOx_IDR and writing into GPIOx_ODR is an non-atomic opera
 This means the CPU performs two separate steps:
   - **Read** the current state of the input register.
   - **Write** the result into the output register.
-  - If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions.                                                **STM32 provides a Bit Set/Reset Register (BSSR) to perform atomic operation**
-  - Writing into this register directly sets/resets the value.
+  - If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions.
+
+**STM32 provides a Bit Set/Reset Register (BSSR) to perform atomic operation**
+  - Writing into this register directly sets/resets the value in GPIOx_ODR
   - It doesn't require writing into ODR, hence race condition is avoided.
+
+## To Initialise a GPIO Port:
+1. Enable the clock to the port by altering the RCC_AHB1ENR register
+2. Set the mode of the GPIO Pin : MODER Register for the specific pin
+3. Set the pin to Pull-up / Pull-down
+4. Set the output speed of the Pin - Not required if pin configured in INPUT Mode.
+5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin configured in INPUT Mode.
