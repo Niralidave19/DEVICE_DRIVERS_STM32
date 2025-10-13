@@ -40,7 +40,7 @@ Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we woul
 
 <img width="952" height="145" alt="image" src="https://github.com/user-attachments/assets/58c1e939-5ed2-4a15-8eef-e4b17be59116" />
 
-## GPIO Port Base Addresses (STM32F4 Series) 
+### GPIO Port Base Addresses (STM32F4 Series) 
 | GPIO Port | Base Address | Bus   |   
 |-----------|--------------|-------|   
 | GPIOA     | `0x40020000` | AHB1  |  
@@ -53,10 +53,10 @@ Note: Even though only Pin 1 of GPIOA is connected to an I/O interface , we woul
 | GPIOH     | `0x40021C00` | AHB1  |           
 
 Each port has 10 registers : 8 Control registers, 2 data registers.
-## Configuring a GPIO Pin
+### Configuring a GPIO Pin
 While configuring a given pin as a GPIO pin, the software needs to initialise the control registers accordingly. This will enable the GPIO pin as an Input configuration mode, Output configuration mode, Analog Mode or Alternate functionality mode based on developers choice and activate the clock to the specific GPIO Port as well. 
 
-## GPIO Control Registers
+#### GPIO Control Registers
 | Control Register        | Function                                | Description                                                                                                                                                                                                 |
 |--------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `GPIOx_MODER`           | Mode Register                            | Configures each pin as **Input**, **Output**, **Alternate Function**, or **Analog**. Each pin uses 2 bits. (`00` = Input, `01` = Output, `10` = Alternate, `11` = Analog)                                    |
@@ -71,7 +71,7 @@ GPIOx_MODER Register:
 If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first two bits of GPIOA_MODER register has to be set to 01.
 <img width="982" height="218" alt="image" src="https://github.com/user-attachments/assets/7d3ecdf2-1cab-4aa7-9b7c-0eaac8340ee1" />
 
-## Data Registers
+#### Data Registers
 |  Data Register  |      Function       |                Description                                                 |
 |-----------------|---------------------|----------------------------------------------------------------------------|
 |   GPIOx_IDR     | Input Data Register |Captures the logic level present on the GPIO pins configured as inputs.     |
@@ -80,7 +80,7 @@ If the mode for Pin 1 GPIOA register, has to be set as Output Mode : The first t
 |   GPIOx_ODR     | Output Data Register|Holds the logic value to be driven on GPIO pins configured as outputs.      | 
 |                 |                     |Writing 1 or 0 here sets the output level on the corresponding pin.         |
 
-### Is this an Atomic Operation??
+##### Is this an Atomic Operation??
 No, reading from the GPIOx_IDR and writing into GPIOx_ODR is an non-atomic operation.
 This means the CPU performs two separate steps:
   - **Read** the current state of the input register.
@@ -91,7 +91,7 @@ This means the CPU performs two separate steps:
   - Writing into this register directly sets/resets the value in GPIOx_ODR
   - It doesn't require writing into ODR, hence race condition is avoided.
 
-## To Initialise a GPIO Port:
+#### To Initialise a GPIO Port:
 1. Enable the clock to the port by altering the RCC_AHB1ENR register
 2. Set the mode of the GPIO Pin : In the MODER Register for the specific pin
 3. Set the pin to Pull-up / Pull-down type - Required only if the pin is configured in Input Mode
