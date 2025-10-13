@@ -96,8 +96,8 @@ No shared clock between the client and server, then **how do they talk?** They a
 #### Syncronization between Client and Server 
 - Pre-defined baud rate is used by both the client and the server.
 - The receiver continuously monitors and detects the fallind edge (from high to low)  - which implies a start of a new frame. NOTE": In UART, the line is idle high (logic 1) when no data is being transmitted. Hence, when there is a transition from a high to low, that is the start of the frame. This falling edge synchronizes the receivers internal clock to begin sampling.
-- After the start bit, the receiver samples each subsequent bit at exactly one bit time intervals. It samples in the middle of each bit because this would reduce chance of reading incorrect value due to noise or signal distortion.
-For example, lets say the baud rate = 9600 bits/sec
+- After the start bit, the receiver samples each subsequent bit at exactly one bit time intervals. It samples in the middle of each bit because this would reduce chance of reading incorrect value due to noise or signal distortion.\n
+For example, lets say the baud rate = 9600 bits/sec\n
 Each bit is sampled at 104 microseconds.
 The sampling points would be at the middle of each bit:
 Start bit: 0.5 x 104µs = 52µs
