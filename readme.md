@@ -4,7 +4,7 @@ This project implements device drivers and builds a custom HAL Layer for STM32F4
 Currently this repo holds Device Driver implementation for GPIO and USART.
 
 ---
-## Main Motive   
+## MAIN MOTIVE   
 - To understand the interaction between the **Hardware peripherals** of microcontrollers and the **software implementation**.
 - To understand the hardware dependency, and link the Embedded software to the actual CPU architecture
 - To not use any **STM32 HAL Libraries** and Build the entire HAL layer from scratch.
@@ -12,7 +12,7 @@ Currently this repo holds Device Driver implementation for GPIO and USART.
 - To create **modular, reusable drivers** (GPIO, USART, SPI, I²C, Timers, etc.) as a learning base for future embedded projects  
 ---
 
-## Getting Started  
+## GETTING STARTED  
 
 ### Prerequisites  
 
