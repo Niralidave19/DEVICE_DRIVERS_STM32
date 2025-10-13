@@ -2,26 +2,15 @@
 
 This project implements device drivers and builds a custom HAL Layer for STM32F446RE microcontroller, as part of learning **bare-metal programming**. 
 Currently this repo holds Device Driver implementation for GPIO and USART.
-
 ---
 ## MAIN MOTIVE   
 - To understand the interaction between the **Hardware peripherals** of microcontrollers and the **software implementation**.
 - To understand the hardware dependency, and link the Embedded software to the actual CPU architecture
 - To not use any **STM32 HAL Libraries** and Build the entire HAL layer from scratch.
 - To strengthen **register-level programming** and **low-level driver development** skills  
-- To create **modular, reusable drivers** (GPIO, USART, SPI, I²C, Timers, etc.) as a learning base for future embedded projects  
+- To create **modular, reusable drivers** (GPIO, USART, SPI, I²C, Timers, etc.) as a learning base for future embedded projects
 ---
-
-## GETTING STARTED  
-
-### Prerequisites  
-
-- STM32F446RE Nucleo board (or compatible STM32 Cortex-M4)  
-- STM32CubeIDE installed  
-- Datasheet 
-
 ## GPIO Device driver
-
 General Purpose Input Output : GPIO are pins in a microcontroller which can either be configured as an input of an output pin. 
 - Input: To read signals Eg: Button peripheral would be an input.
 - Output: To send signals Eg: LED blinking peripheral would be an output.
