@@ -2,6 +2,7 @@
 
 This project implements device drivers and builds a custom HAL Layer for STM32F446RE microcontroller, as part of learning **bare-metal programming**. 
 Currently this repo holds Device Driver implementation for GPIO and USART.
+
 ---
 ## MAIN MOTIVE   
 - To understand the interaction between the **Hardware peripherals** of microcontrollers and the **software implementation**.
@@ -86,5 +87,5 @@ This means the CPU performs two separate steps:
 3. Set the pin to Pull-up / Pull-down type - Required only if the pin is configured in Input Mode
 4. Set the output speed of the Pin - Not required if pin configured in INPUT Mode.
 5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin is configured in INPUT Mode.
-
+---
 ## UART/USART DRIVERS
