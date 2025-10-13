@@ -93,4 +93,5 @@ This means the CPU performs two separate steps:
 - The controller needs to have two pins: TX and RX pin on which it can either transmit data (TX Pin) or receive data (RX Pin).
 ### UART (Asynchronous communication) 
 No shared clock between the client and server, then **how do they talk?** They agree upon a pre-defined baud rate, and synchronization is achieved using start and stop bits. 
+#### Syncronization between Client and Server 
 
