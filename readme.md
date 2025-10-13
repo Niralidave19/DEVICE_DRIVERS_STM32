@@ -20,7 +20,7 @@ Currently this repo holds Device Driver implementation for GPIO and USART.
 - STM32CubeIDE installed  
 - Datasheet 
 
-### GPIO Device driver
+## GPIO Device driver
 
 General Purpose Input Output : GPIO are pins in a microcontroller which can either be configured as an input of an output pin. 
 - Input: To read signals Eg: Button peripheral would be an input.
@@ -93,7 +93,7 @@ This means the CPU performs two separate steps:
 
 ## To Initialise a GPIO Port:
 1. Enable the clock to the port by altering the RCC_AHB1ENR register
-2. Set the mode of the GPIO Pin : MODER Register for the specific pin
-3. Set the pin to Pull-up / Pull-down
+2. Set the mode of the GPIO Pin : In the MODER Register for the specific pin
+3. Set the pin to Pull-up / Pull-down type - Required only if the pin is configured in Input Mode
 4. Set the output speed of the Pin - Not required if pin configured in INPUT Mode.
-5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin configured in INPUT Mode.
+5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin is configured in INPUT Mode.
