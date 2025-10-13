@@ -92,3 +92,4 @@ This means the CPU performs two separate steps:
 - UART/USART stands for universal synchronous synchronous/asynchronous receiver transmitter. This is a hardware module that facilitates serial communication.
 - The controller needs to have two pins: TX and RX pin on which it can either transmit data (TX Pin) or receive data (RX Pin).
 ### UART (Asynchronous communication) 
+No shared clock between the client and server, then 
