@@ -110,11 +110,3 @@ Bit 5     : 6.5 × 104µs = 676µs
 Bit 6     : 7.5 × 104µs = 780µs  
 Bit 7     : 8.5 × 104µs = 884µs  
 Stop Bit  : 10.5 × 104µs = 1092µs
-For example, lets say the baud rate = 9600 bits/sec\n
-Each bit is sampled at 104 microseconds.
-The sampling points would be at the middle of each bit:
-Start bit: 0.5 x 104µs = 52µs
-Bit 0    : 1.5 x 104µs = 156µs
-....
-....
-Stop Bit : 10.5 x 104µs = 1093µs
