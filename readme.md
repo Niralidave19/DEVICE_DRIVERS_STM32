@@ -89,3 +89,6 @@ This means the CPU performs two separate steps:
 5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin is configured in INPUT Mode.
 ---
 ## UART/USART DRIVERS
+- UART/USART stands for universal synchronous synchronous/asynchronous receiver transmitter. This is a hardware module that facilitates serial communication.
+- The controller needs to have two pins: TX and RX pin on which it can either transmit data (TX Pin) or receive data (RX Pin).
+### UART (Asynchronous communication) 
