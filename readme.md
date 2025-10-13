@@ -97,3 +97,5 @@ This means the CPU performs two separate steps:
 3. Set the pin to Pull-up / Pull-down type - Required only if the pin is configured in Input Mode
 4. Set the output speed of the Pin - Not required if pin configured in INPUT Mode.
 5. Set the output type of the I/O port - Output Push Pull / Output open drain - Not required if pin is configured in INPUT Mode.
+
+## UART/USART DRIVERS
