@@ -86,6 +86,6 @@ This means the CPU performs two separate steps:
   - **Read** the current state of the input register.
   - **Write** the result into the output register.
   - If an **interrupt** or **another peripheral** modifies the register between these two steps, the output might not reflect the intended state — leading to race conditions.                                                                 
-STM32 provides a Bit Set/Reset Register (BSSR) to perform atomic operation.
+**STM32 provides a Bit Set/Reset Register (BSSR) to perform atomic operation**
   - Writing into this register directly sets/resets the value.
   - It doesn't require writing into ODR, hence race condition is avoided.
