@@ -99,7 +99,7 @@ No shared clock between the client and server, then **how do they talk?** They a
 - After the start bit, the receiver samples each subsequent bit at exactly one bit time intervals. It samples in the middle of each bit because this would reduce chance of reading incorrect value due to noise or signal distortion.
 For example, let's say the baud rate = 9600 bits/sec  
 Each bit is sampled at 104 microseconds.  
-The sampling points would be at the middle of each bit:  
+The sampling points would be at the middle of each bit:
 Start Bit : 0.5 × 104µs = 52µs  
 Bit 0     : 1.5 × 104µs = 156µs  
 Bit 1     : 2.5 × 104µs = 260µs  
@@ -110,3 +110,9 @@ Bit 5     : 6.5 × 104µs = 676µs
 Bit 6     : 7.5 × 104µs = 780µs  
 Bit 7     : 8.5 × 104µs = 884µs  
 Stop Bit  : 10.5 × 104µs = 1092µs
+#### Initialization of the UART hardware (Asynchronous) 
+1. Consider two GPIO Pins in Alternate functionality mode, such that it behaves as a UART Rx and UART Tx Pin. Initialise the GPIO pins as described in section 1.
+2. Enable the clock for UART hardware - The UART clock is the system or peripheral clock that powers the UART hardware block inside the microcontroller. A clock is used to generate the baud rate, transmit/receive shift registers etc.
+  2.1 The UART peripheral is connected to the APB1 bus. Hence enable the clock to the UART2 peripheral in the RCC registers.
+3. Set the baud rate for UART communication - Set it in register USART_BRR
+   3.1 Baud rate = UART Clock / USART_BRR
