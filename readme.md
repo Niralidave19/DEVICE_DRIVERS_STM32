@@ -113,12 +113,12 @@ Stop Bit  : 10.5 × 104µs = 1092µs
 #### Why have a separate baud rate? Why can't UART comminicate syncing with the clock source?
 1. UART peripheral receives a clock from the system clock source. This is much faster than the baud rate.
 2. In the software, we configure the BRR value which would divide the UART clock down to match the desired baud rate.
-3. The UART hardware uses this BRR value to generate internal timing oulses
+3. The UART hardware uses this BRR value to generate internal timing pulses.
 #### Initialization of the UART hardware (Asynchronous) 
 1. Consider two GPIO Pins in Alternate functionality mode, such that it behaves as a UART Rx and UART Tx Pin. Initialise the GPIO pins as described in section 1.
 2. Enable the clock for UART hardware - The UART clock is the system or peripheral clock that powers the UART hardware block inside the microcontroller. A clock is used to generate the baud rate, transmit/receive shift registers etc.
    - The UART peripheral is connected to the APB1 bus. Hence enable the clock to the UART2 peripheral in the RCC registers.
-3. Set the baud rate for UART communication - Set it in register USART_BRR
-  - Baud rate = UART Clock / USART_BRR
+3. Set the baud rate for UART communication - Set it in register USART_BRR.
+  - Baud rate = UART Clock / USART_BRR.
   - Consider the Baud rate to be 9600 bits/sec. Assuming the UART clock is 16MHz, the valu eof the USART_BRR must be set to 1667.
 4. In USART CR1 register, set the USART Enable , Transmitter enable pin and Receiver Enable Pins to 1. 
