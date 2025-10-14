@@ -121,4 +121,6 @@ Stop Bit  : 10.5 × 104µs = 1092µs
 3. Set the baud rate for UART communication - Set it in register USART_BRR.
    - Baud rate = UART Clock / USART_BRR.
    - Consider the Baud rate to be 9600 bits/sec. Assuming the UART clock is 16MHz, the valu eof the USART_BRR must be set to 1667.
-4. In USART CR1 register, set the USART Enable , Transmitter enable pin and Receiver Enable Pins to 1. 
+4. In USART CR1 register, set the USART Enable , Transmitter enable pin and Receiver Enable Pins to 1.
+#### How is the transmission acheived? 
+During a USART transmission, data shifts out least significant bit first on the TX pin. In this mode, the USART_DR register consists of a buffer (TDR) between the internal bus amd the transmit shift register.
