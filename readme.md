@@ -155,3 +155,8 @@ During a USART transmission, data shifts out least significant bit first on the 
 **Logic gates & NVIC**
 1. Combines signals from the edge detector and pulse generator.
 2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
+
+To Develop a bare metal platform for NVIC:
+1. Enable the interrupt
+2. Set the type - falling edge or rising or both
+3. When the pending bit is set to 1, interrupt triggered 
