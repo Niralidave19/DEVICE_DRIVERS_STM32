@@ -126,10 +126,11 @@ Stop Bit  : 10.5 × 104µs = 1092µs
 During a USART transmission, data shifts out least significant bit first on the TX pin. In this mode, the USART_DR register consists of a buffer (TDR) between the internal bus amd the transmit shift register.
 
 ## INTERRUPTS AND EVENTS 
-- The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change is signal levels which is useful when an external event/interupt occurs.
+- The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change in signal levels which is useful when an external event/interupt occurs.
 - When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to a trigger event: Rising edge, Falling edge, Both edges.
 - The lines/interrupts can be masked - meaning you can disable or ignore specific interrupt lines temporarily.
 
+**External Interrupt/Event Controller Block Diagram**
 <img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
 23 Bit wide registers: 
 1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
