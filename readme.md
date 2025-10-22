@@ -129,8 +129,15 @@ During a USART transmission, data shifts out least significant bit first on the 
 - The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change in signal levels which is useful when an external event/interupt occurs.
 - When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to a trigger event: Rising edge, Falling edge, Both edges.
 - The lines/interrupts can be masked - meaning you can disable or ignore specific interrupt lines temporarily.
-
+### EXTI - External Interrupt/Event Controller
+- Monitors external pins (like GPIOs) for signal changes
+- When a edge is detected, EXTI sets a pending interrupt flag.
+- EXTI doesn't directly interrupt the CPU - It signals that an interrupt is pending.
+### NVIC - Nested Vectored Interrupt Controller 
+- Manages all interrupts in the system. When EXTI sets a pending flag, NVIC checks if the EXTI interrupt line is enabled and its priority allows it to interrupt the CPU.
+- If som NVIC triggers the interrupt and calls an ISR.
 **External Interrupt/Event Controller Block Diagram**
+
 <img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
 23 Bit wide registers: 
 1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
