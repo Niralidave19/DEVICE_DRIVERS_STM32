@@ -124,3 +124,26 @@ Stop Bit  : 10.5 × 104µs = 1092µs
 4. In USART CR1 register, set the USART Enable , Transmitter enable pin and Receiver Enable Pins to 1.
 #### How is the transmission acheived? 
 During a USART transmission, data shifts out least significant bit first on the TX pin. In this mode, the USART_DR register consists of a buffer (TDR) between the internal bus amd the transmit shift register.
+
+## INTERRUPTS AND EVENTS 
+- The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change is signal levels which is useful when an external event/interupt occurs.
+- When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to a trigger event: Rising edge, Falling edge, Both edges.
+- The lines/interrupts can be masked - meaning you can disable or ignore specific interrupt lines temporarily.
+
+<img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
+23 Bit wide registers: 
+1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
+2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
+3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
+4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
+5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
+
+Edge Detect Circuit:
+1. Monitors input signal for rising, falling or both edges.
+
+Pulse Generator & Event mask register
+1. Pulse is generated when an even occurs and the Event Mask Register decides if the events are allowed to proporgate.
+
+Logic gates & NVIC
+1. Combines signals from the edge detector and pulse generator.
+2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
