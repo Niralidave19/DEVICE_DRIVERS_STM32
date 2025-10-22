@@ -136,22 +136,22 @@ During a USART transmission, data shifts out least significant bit first on the 
 ### NVIC - Nested Vectored Interrupt Controller 
 - Manages all interrupts in the system. When EXTI sets a pending flag, NVIC checks if the EXTI interrupt line is enabled and its priority allows it to interrupt the CPU.
 - If som NVIC triggers the interrupt and calls an ISR.
-**External Interrupt/Event Controller Block Diagram**
-
+### External Interrupt/Event Controller Block Diagram
 <img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
-23 Bit wide registers: 
+
+**23 Bit wide registers:**
 1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
 2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
 3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
 4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
 5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
 
-Edge Detect Circuit:
+**Edge Detect Circuit:**
 1. Monitors input signal for rising, falling or both edges.
 
-Pulse Generator & Event mask register
+**Pulse Generator & Event mask register:**
 1. Pulse is generated when an even occurs and the Event Mask Register decides if the events are allowed to proporgate.
 
-Logic gates & NVIC
+**Logic gates & NVIC**
 1. Combines signals from the edge detector and pulse generator.
 2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
