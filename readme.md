@@ -159,4 +159,8 @@ During a USART transmission, data shifts out least significant bit first on the 
 To Develop a bare metal platform for NVIC:
 1. Enable the interrupt
 2. Set the type - falling edge or rising or both
-3. When the pending bit is set to 1, interrupt triggered 
+3. When the pending bit is set to 1, interrupt triggered
+
+The EXTI registers are part of this 
+<img width="704" height="55" alt="image" src="https://github.com/user-attachments/assets/51c35c42-3e05-4909-a3ae-f75a7aa73c01" />
+
