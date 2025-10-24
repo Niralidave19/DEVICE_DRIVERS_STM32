@@ -127,7 +127,7 @@ During a USART transmission, data shifts out least significant bit first on the 
 
 ## INTERRUPTS AND EVENTS 
 - The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change in signal levels which is useful when an external event/interupt occurs.
-- When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to a trigger event: Rising edge, Falling edge, Both edges.
+- When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to trigger an event: Rising edge, Falling edge, Both edges.
 - The lines/interrupts can be masked - meaning you can disable or ignore specific interrupt lines temporarily.
 ### EXTI - External Interrupt/Event Controller
 - Monitors external pins (like GPIOs) for signal changes
@@ -161,6 +161,40 @@ To Develop a bare metal platform for NVIC:
 2. Set the type - falling edge or rising or both
 3. When the pending bit is set to 1, interrupt triggered
 
+Where are the NVIC peripherals? Where do they sit?
+- In the below image , the highlighted RED coloured box indicates the Base address of the Cortex-M4 internal memory mapped registers.(0xE000000 - 0xE00FFFFF) A part of these represent the NVIC peripherals as well. 
+- This address range is inside a private peripheral bus, unlike the GPIOs USART etc. 
+<img width="1392" height="858" alt="image" src="https://github.com/user-attachments/assets/85c3b384-2ddc-41ed-94df-5e019e496333" />
+
+NVIC Register layout is such that:
+There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. 
+Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
+ISER0 - Handles interrupts from IRQ0 - IRQ31 
+ISER1 - Handles interrupts from IRQQ32 - IRQ63
+<img width="878" height="651" alt="image" src="https://github.com/user-attachments/assets/58a54447-0ad0-4965-b60b-20fb9efb029c" />
+
+<img width="840" height="620" alt="image" src="https://github.com/user-attachments/assets/72739d8b-0928-4cc3-9380-81aacf88bb4f" />
+
+
 The EXTI registers are part of this 
 <img width="704" height="55" alt="image" src="https://github.com/user-attachments/assets/51c35c42-3e05-4909-a3ae-f75a7aa73c01" />
 
+On STM32, 
+- Each interrupt priority value is 4 bits long - Priority Value can vary from 0 - 15 (16 Priority values)
+- When the priority is written into the IPR register of NVIC, only the upper four bits is written
+So how to write in this priority for interrupts?
+- NVIC IPR register base address is 0xE000E400
+- Each interrupt gets one NVIC IPR register (1 Byte long), where only the top 4 bits are used to indicate the priority.
+- For USART2_IRQn = n, Priority register address = 0xE000E400 + n
+  *(volatile uint8_t *)(0xE000E400 + 38) = (5 << 4);   // set priority level 5 for USART2
+
+What does this priority number indicate? 
+- The 4 bits of priority value, has two aspects to it:
+  1. Preemption Priority: Decides which interrupt can preempt another one
+  2. Subpriority : Decides which interrupt should run first if two are at the same pre-emption level and are pending.
+- The concept of **Priority Grouping** controls how many bits of the 4-bit priority are used for preemption and how many for subpriority.
+- There are different priority groups:
+  1. 0b000 - All 4 bits for preemption priority
+  2. 0b001 - 3 bits preemption and 1 bit subpriority
+  3. 0b010 - 2 bits preemption and 2 bits subpriority
+  4. 0b011 - 
