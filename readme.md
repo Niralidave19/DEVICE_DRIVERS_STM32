@@ -167,10 +167,17 @@ Where are the NVIC peripherals? Where do they sit?
 <img width="1392" height="858" alt="image" src="https://github.com/user-attachments/assets/85c3b384-2ddc-41ed-94df-5e019e496333" />
 
 NVIC Register layout is such that:
-There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. 
-Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
-ISER0 - Handles interrupts from IRQ0 - IRQ31 
-ISER1 - Handles interrupts from IRQQ32 - IRQ63
+- There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. 
+- Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
+- ISER (Interrupt Set Enable Register): Writing one to the bit, would enable the specific IRQ. 
+      1. ISER0 - Handles interrupts from IRQ0 - IRQ31 
+      2. ISER1 - Handles interrupts from IRQQ32 - IRQ63
+      3. ISER3 - Handles interrupts from IRQ64 - IRQ81
+- ICER (Interrupt Clear Enable Interrupt): Writing one to the bit, would disable the specific IRQ.
+- ISPR (Interrupt Set Pending Register): Writing one to the bit, sets the specific IRQ as pending.
+- ICPR (Interrupt Clear Pending Register): Writing one to the bit, clears the pending interrupt for the specific IRQ.
+- IABR (Interrupt Active Bit Register): This is used to check if a given interrupt is currently being executed. If the specific interrupt bit in IABR is set to 1 implies the ISR is executed for that interrupt.
+- IPR  (Interrupt Priority Register): Note that this register is byte addressable - Each IRQ has an IPR register, which indicates the priority of the interrupt.
 <img width="878" height="651" alt="image" src="https://github.com/user-attachments/assets/58a54447-0ad0-4965-b60b-20fb9efb029c" />
 
 <img width="840" height="620" alt="image" src="https://github.com/user-attachments/assets/72739d8b-0928-4cc3-9380-81aacf88bb4f" />
