@@ -156,19 +156,13 @@ During a USART transmission, data shifts out least significant bit first on the 
 1. Combines signals from the edge detector and pulse generator.
 2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
 
-To Develop a bare metal platform for NVIC:
-1. Enable the interrupt
-2. Set the type - falling edge or rising or both
-3. When the pending bit is set to 1, interrupt triggered
-
 Where are the NVIC peripherals? Where do they sit?
 - In the below image , the highlighted RED coloured box indicates the Base address of the Cortex-M4 internal memory mapped registers.(0xE000000 - 0xE00FFFFF) A part of these represent the NVIC peripherals as well. 
 - This address range is inside a private peripheral bus, unlike the GPIOs USART etc. 
 <img width="1392" height="858" alt="image" src="https://github.com/user-attachments/assets/85c3b384-2ddc-41ed-94df-5e019e496333" />
 
 NVIC Register layout is such that:
-- There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. 
-- Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
+There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
 - ISER (Interrupt Set Enable Register): Writing one to the bit, would enable the specific IRQ. 
       1. ISER0 - Handles interrupts from IRQ0 - IRQ31 
       2. ISER1 - Handles interrupts from IRQQ32 - IRQ63
