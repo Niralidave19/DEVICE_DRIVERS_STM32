@@ -133,20 +133,21 @@ During a USART transmission, data shifts out least significant bit first on the 
 - Monitors external pins (like GPIOs) for signal changes
 - When a edge is detected, EXTI sets a pending interrupt flag.
 - EXTI doesn't directly interrupt the CPU - It signals that an interrupt is pending.
+### External Interrupt/Event Controller Block Diagram
+<img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
+#### **23 Bit wide registers:**
+1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
+2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
+3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
+4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
+5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
 
 ### System Configuration controller 
 - We use the register system configuration external interrupt configuration register for glowing an LED in an interrupt mode.
 - It allows you to map external interrupts (EXTI0 - EXTI3) to specific GPIO ports.
 - EXTI0 can come from PA0 or PB0 or PC0 etc.. In one application , we can tie it to only one pin.
 - Each EXTIx is tied to which port - Is defined in the SYSCFG_EXTICR1 register as part of the SYSCFG block.
-### External Interrupt/Event Controller Block Diagram
-<img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
-**23 Bit wide registers:**
-1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
-2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
-3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
-4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
-5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
+
 
 Say we want to configure EXTI0 for pin PA0: 
                                [PA0 pin] → [SYSCFG EXTICR: map PA0 → EXTI0] → [EXTI controller: enable line, set edge detection] → [NVIC EXTI0_IRQn] → CPU ISR
