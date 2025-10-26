@@ -143,13 +143,9 @@ During a USART transmission, data shifts out least significant bit first on the 
 4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
 5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
 #### Hardware circuits as part of the EXTI controller
-**Edge Detect Circuit**
-1. Monitors input signal for rising, falling or both edges.
-**Pulse Generator & Event mask register**
-1. Pulse is generated when an even occurs and the Event Mask Register decides if the events are allowed to proporgate.
-**Logic gates & NVIC**
-1. Combines signals from the edge detector and pulse generator.
-2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
+1. **Edge Detect Circuit** : Monitors input signal for rising, falling or both edges.
+2. **Pulse Generator & Event mask register** : Pulse is generated when an even occurs and the Event Mask Register decides if the events are allowed to proporgate.
+3. **Logic gates & NVIC** : Combines signals from the edge detector and pulse generator. Sends valid requests to NVIC - which handles by calling appropriate ISRs.
    
 ### System Configuration controller 
 - We use the register system configuration external interrupt configuration register for glowing an LED in an interrupt mode.
