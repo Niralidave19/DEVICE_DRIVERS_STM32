@@ -129,22 +129,31 @@ During a USART transmission, data shifts out least significant bit first on the 
 - The external interrupt controller monitors external signals and generates interrupts or events. There are 23 edge detectors - These circuits detects change in signal levels which is useful when an external event/interupt occurs.
 - When an edge transition is detected on a pin, the controller can generate an Interupt / Event. Each line is configured to trigger an event: Rising edge, Falling edge, Both edges.
 - The lines/interrupts can be masked - meaning you can disable or ignore specific interrupt lines temporarily.
-### EXTI - External Interrupt/Event Controller
+### EXTI - External Interrupt/Event Controller - USED ONLY FOR EXTERNAL INTERRUPTS NOT USED FOR INTERNAL INTERRUPTS
 - Monitors external pins (like GPIOs) for signal changes
 - When a edge is detected, EXTI sets a pending interrupt flag.
 - EXTI doesn't directly interrupt the CPU - It signals that an interrupt is pending.
-### NVIC - Nested Vectored Interrupt Controller 
-- Manages all interrupts in the system. When EXTI sets a pending flag, NVIC checks if the EXTI interrupt line is enabled and its priority allows it to interrupt the CPU.
-- If som NVIC triggers the interrupt and calls an ISR.
+
+### System Configuration controller 
+- We use the register system configuration external interrupt configuration register for glowing an LED in an interrupt mode.
+- It allows you to map external interrupts (EXTI0 - EXTI3) to specific GPIO ports.
+- EXTI0 can come from PA0 or PB0 or PC0 etc.. In one application , we can tie it to only one pin.
+- Each EXTIx is tied to which port - Is defined in the SYSCFG_EXTICR1 register as part of the SYSCFG block.
 ### External Interrupt/Event Controller Block Diagram
 <img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
-
 **23 Bit wide registers:**
 1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
 2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
 3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
 4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
 5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
+
+Say we want to configure EXTI0 for pin PA0: 
+                               [PA0 pin] → [SYSCFG EXTICR: map PA0 → EXTI0] → [EXTI controller: enable line, set edge detection] → [NVIC EXTI0_IRQn] → CPU ISR
+                               
+### NVIC - Nested Vectored Interrupt Controller 
+- Manages all interrupts in the system. When EXTI sets a pending flag, NVIC checks if the EXTI interrupt line is enabled and its priority allows it to interrupt the CPU.
+- If som NVIC triggers the interrupt and calls an ISR.
 
 **Edge Detect Circuit:**
 1. Monitors input signal for rising, falling or both edges.
@@ -156,12 +165,12 @@ During a USART transmission, data shifts out least significant bit first on the 
 1. Combines signals from the edge detector and pulse generator.
 2. Sends valid requests to NVIC - which handles by calling appropriate ISRs
 
-Where are the NVIC peripherals? Where do they sit?
+### Where are the NVIC peripherals? Where do they sit?
 - In the below image , the highlighted RED coloured box indicates the Base address of the Cortex-M4 internal memory mapped registers.(0xE000000 - 0xE00FFFFF) A part of these represent the NVIC peripherals as well. 
 - This address range is inside a private peripheral bus, unlike the GPIOs USART etc. 
 <img width="1392" height="858" alt="image" src="https://github.com/user-attachments/assets/85c3b384-2ddc-41ed-94df-5e019e496333" />
 
-NVIC Register layout is such that:
+#### NVIC Register layout is such that:
 There are around 82 interrupts in cortex M4, and each interrupt is enabled/disabled/givent a priority through NVIC. Each NVIC Register is 32 bits wide - where each bit would correspond to an interrupt. Looking at this structure, each register will handle 32 interrupts.
 - ISER (Interrupt Set Enable Register): Writing one to the bit, would enable the specific IRQ. 
       1. ISER0 - Handles interrupts from IRQ0 - IRQ31 
@@ -174,7 +183,19 @@ There are around 82 interrupts in cortex M4, and each interrupt is enabled/disab
 - IPR  (Interrupt Priority Register): Note that this register is byte addressable - Each IRQ has an IPR register, which indicates the priority of the interrupt.
 <img width="878" height="651" alt="image" src="https://github.com/user-attachments/assets/58a54447-0ad0-4965-b60b-20fb9efb029c" />
 
+#### AIRCR (Application Control and Reset Control Register)
+- This register sets the priority grouping used by the application, inside the AIRCR Register. This determines how the NVIC interprets the priority byte you write for each IRQ.
+- It is a 32 bit register, where
+  1. Bits 31:16 represent the VECT_KEY
+  2. Bits 10:8  Priority Group
+- To set the priority grouping, a write_key needs to be written into the VECT_KEY bits - to unlock writes. The VECT_KEY that needs to be written for unlocking is 0x5FA.
+### How to set the priority grouping?
+- First clear the bits in the AIRCR register - VECT_KEY and Priority Group
+- Write 0X5FA into bits 31:16 (Bits corresponding to VECT_KEY) - This will unlock the writing into the register
+- Set the priority as per the user needs.
+- 
 <img width="840" height="620" alt="image" src="https://github.com/user-attachments/assets/72739d8b-0928-4cc3-9380-81aacf88bb4f" />
+
 
 
 The EXTI registers are part of this 
@@ -196,6 +217,7 @@ What does this priority number indicate?
 - The concept of **Priority Grouping** controls how many bits of the 4-bit priority are used for preemption and how many for subpriority.
 - There are different priority groups:
   1. 0b000 - All 4 bits for preemption priority
-  2. 0b001 - 3 bits preemption and 1 bit subpriority
+  2. 0b001 - 1 bits preemption and 3 bit subpriority
   3. 0b010 - 2 bits preemption and 2 bits subpriority
-  4. 0b011 - 
+  4. 0b011 - 3 bits preemption and 1 bit subpriority
+  5. 0b100 - 4 bits preemption and 0 bit subpriority
