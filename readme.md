@@ -135,12 +135,14 @@ During a USART transmission, data shifts out least significant bit first on the 
 - EXTI doesn't directly interrupt the CPU - It signals that an interrupt is pending.
 ### External Interrupt/Event Controller Block Diagram
 <img width="566" height="422" alt="image" src="https://github.com/user-attachments/assets/7801f8bb-1aa4-420b-81d2-5735de2e9dd1" />
-#### 23 Bit wide registers:
+
+#### 23 Bit wide registers
 1. Pending Request Register: Stores which interrupt lines have been triggered and waiting to be serviced.
 2. Interrupt Mask Register: Controls which interrupt lines are enabled or disabled.
 3. Software Interrupt Event Register: Allows software to manually trigger an interrupt.
 4. Rising Trigger Selection Register: Configures which lines should respond to rising edges.
 5. Falling Trigger Selection Register: Configures which lines should respond to falling edges.
+#### Hardware circuits as part of the EXTI controller
 **Edge Detect Circuit:**
 1. Monitors input signal for rising, falling or both edges.
 **Pulse Generator & Event mask register:**
