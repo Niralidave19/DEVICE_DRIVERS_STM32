@@ -190,8 +190,6 @@ Say we want to configure EXTI0 for pin PA0:
 - First clear the bits in the AIRCR register - VECT_KEY and Priority Group
 - Write 0X5FA into bits 31:16 (Bits corresponding to VECT_KEY) - This will unlock the writing into the register
 - Set the priority as per the user needs.
-- 
-<img width="840" height="620" alt="image" src="https://github.com/user-attachments/assets/72739d8b-0928-4cc3-9380-81aacf88bb4f" />
 
 
 
