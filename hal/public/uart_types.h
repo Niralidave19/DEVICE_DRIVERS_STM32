@@ -20,11 +20,20 @@ typedef struct {
 	volatile uint32_t usart_gtpr;
 }UART_Reg_def_t;
 
+/*To choose which type of mode UART works in:
+  1. Polling   2. Interrupt driven  3. DMA */
+typedef enum {
+	UART_POLLING_MODE,
+	UART_INTERRUPT_MODE,
+	UART_DMA_MODE
+}UART_mode_t;
+
 typedef struct {
-	uint8_t  enable_clk_cntrl;
-	uint8_t  enable_flow_cntrl;
-	uint32_t baud;
-	uint32_t pclk;
+	uint8_t     enable_clk_cntrl;
+	uint8_t     enable_flow_cntrl;
+	uint32_t    baud;
+	uint32_t    pclk;
+	UART_mode_t mode;
 }UART_config_t;
 
 #endif /* PUBLIC_UART_TYPES_H_ */

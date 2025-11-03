@@ -12,8 +12,8 @@
 #include "uart_types.h"
 
 volatile  UART_Reg_def_t* UART_GetPort();
-void      USART2_Init();
-uint16_t  USART2_Receive();
+void      USART_Init();
+uint16_t  uart_receive();
 void      USART2_Write(char ch);
 
 #endif /* PUBLIC_UART_PROTO_H_ */

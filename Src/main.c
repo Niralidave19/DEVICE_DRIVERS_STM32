@@ -24,8 +24,11 @@
 
 int main(void)
 {
+  /*call the application init routine that initialises all the inits */
   app_init();
+
   while(1){
+    /*calls the app update routine*/
     app_update();
   }
     /* Loop forever */
