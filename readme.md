@@ -184,6 +184,13 @@ NVIC allows setting both preemption priority and subpriority. Here’s how they 
 - Write 0X5FA into bits 31:16 (Bits corresponding to VECT_KEY) - This will unlock the writing into the register
 - Set the priority as per the user needs.
 
+On STM32, Each interrupt priority value is 4 bits long - Priority Value can vary from 0 - 15 (16 Priority values). When the priority is written into the IPR register of NVIC, only the upper four bits is written
+So how to write in this priority for interrupts?
+- NVIC IPR register base address is 0xE000E400
+- Each interrupt gets one NVIC IPR register (1 Byte long), where only the top 4 bits are used to indicate the priority.
+- For USART2_IRQn = n, Priority register address = 0xE000E400 + n
+  *(volatile uint8_t *)(0xE000E400 + 38) = (5 << 4);   // set priority level 5 for USART2
+
 ### EXTI - External Interrupt/Event Controller - USED ONLY FOR EXTERNAL INTERRUPTS NOT USED FOR INTERNAL INTERRUPTS
 - Monitors external pins (like GPIOs) for signal changes.
 - When a edge is detected, EXTI sets a pending interrupt flag.
@@ -224,9 +231,7 @@ Say we want to configure EXTI0 for pin PA0:
 The EXTI registers are part of this 
 <img width="704" height="55" alt="image" src="https://github.com/user-attachments/assets/51c35c42-3e05-4909-a3ae-f75a7aa73c01" />
 
-On STM32, 
-- Each interrupt priority value is 4 bits long - Priority Value can vary from 0 - 15 (16 Priority values)
-- When the priority is written into the IPR register of NVIC, only the upper four bits is written
+On STM32, Each interrupt priority value is 4 bits long - Priority Value can vary from 0 - 15 (16 Priority values). When the priority is written into the IPR register of NVIC, only the upper four bits is written
 So how to write in this priority for interrupts?
 - NVIC IPR register base address is 0xE000E400
 - Each interrupt gets one NVIC IPR register (1 Byte long), where only the top 4 bits are used to indicate the priority.
