@@ -191,6 +191,25 @@ So how to write in this priority for interrupts?
 - For USART2_IRQn = n, Priority register address = 0xE000E400 + n
   *(volatile uint8_t *)(0xE000E400 + 38) = (5 << 4);   // set priority level 5 for USART2
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### EXTI - External Interrupt/Event Controller - USED ONLY FOR EXTERNAL INTERRUPTS NOT USED FOR INTERNAL INTERRUPTS
 - Monitors external pins (like GPIOs) for signal changes.
 - When a edge is detected, EXTI sets a pending interrupt flag.
@@ -217,35 +236,7 @@ So how to write in this priority for interrupts?
 Say we want to configure EXTI0 for pin PA0: 
                                [PA0 pin] → [SYSCFG EXTICR: map PA0 → EXTI0] → [EXTI controller: enable line, set edge detection] → [NVIC EXTI0_IRQn] → CPU ISR
                                
-#### AIRCR (Application Control and Reset Control Register)
-- This register sets the priority grouping used by the application, inside the AIRCR Register. This determines how the NVIC interprets the priority byte you write for each IRQ.
-- It is a 32 bit register, where
-  1. Bits 31:16 represent the VECT_KEY
-  2. Bits 10:8  Priority Group
-- To set the priority grouping, a write_key needs to be written into the VECT_KEY bits - to unlock writes. The VECT_KEY that needs to be written for unlocking is 0x5FA.
-### How to set the priority grouping?
-- First clear the bits in the AIRCR register - VECT_KEY and Priority Group
-- Write 0X5FA into bits 31:16 (Bits corresponding to VECT_KEY) - This will unlock the writing into the register
-- Set the priority as per the user needs.
 
 The EXTI registers are part of this 
 <img width="704" height="55" alt="image" src="https://github.com/user-attachments/assets/51c35c42-3e05-4909-a3ae-f75a7aa73c01" />
 
-On STM32, Each interrupt priority value is 4 bits long - Priority Value can vary from 0 - 15 (16 Priority values). When the priority is written into the IPR register of NVIC, only the upper four bits is written
-So how to write in this priority for interrupts?
-- NVIC IPR register base address is 0xE000E400
-- Each interrupt gets one NVIC IPR register (1 Byte long), where only the top 4 bits are used to indicate the priority.
-- For USART2_IRQn = n, Priority register address = 0xE000E400 + n
-  *(volatile uint8_t *)(0xE000E400 + 38) = (5 << 4);   // set priority level 5 for USART2
-
-What does this priority number indicate? 
-- The 4 bits of priority value, has two aspects to it:
-  1. Preemption Priority: Decides which interrupt can preempt another one
-  2. Subpriority : Decides which interrupt should run first if two are at the same pre-emption level and are pending.
-- The concept of **Priority Grouping** controls how many bits of the 4-bit priority are used for preemption and how many for subpriority.
-- There are different priority groups:
-  1. 0b000 - All 4 bits for preemption priority
-  2. 0b001 - 1 bits preemption and 3 bit subpriority
-  3. 0b010 - 2 bits preemption and 2 bits subpriority
-  4. 0b011 - 3 bits preemption and 1 bit subpriority
-  5. 0b100 - 4 bits preemption and 0 bit subpriority
