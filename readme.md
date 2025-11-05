@@ -156,7 +156,6 @@ The User/APP, decides the priority grouping and priority of an interrupt. This i
 - ICPR (Interrupt Clear Pending Register): Writing one to the bit, clears the pending interrupt for the specific IRQ.
 - IABR (Interrupt Active Bit Register): This is used to check if a given interrupt is currently being executed. If the specific interrupt bit in IABR is set to 1 implies the ISR is executed for that interrupt.
 - IPR  (Interrupt Priority Register): Note that this register is byte addressable - Each IRQ has an IPR register, which indicates the priority of the interrupt.
-<img width="878" height="651" alt="image" src="https://github.com/user-attachments/assets/58a54447-0ad0-4965-b60b-20fb9efb029c" />
 
 ### What is a Priority? How to we set a priority group? 
 NVIC allows setting both preemption priority and subpriority. Here’s how they differ:
