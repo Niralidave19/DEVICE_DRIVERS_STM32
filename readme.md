@@ -240,3 +240,7 @@ Say we want to configure EXTI0 for pin PA0:
 The EXTI registers are part of this 
 <img width="704" height="55" alt="image" src="https://github.com/user-attachments/assets/51c35c42-3e05-4909-a3ae-f75a7aa73c01" />
 
+## DMA (Direct Memory Access)
+Every operation with respect to memory: 1. reading from RAM / Writing into RAM 2. Peripheral opertions like reading UART recieved registers etc requires the in involvement of CPU. CPU must poll / CPU is utilized when an interrupt is triggered on the specific peripheral - Irrespective of whichever mode it is, during the trasfer CPU is in use. If there is DMA, CPU is free to run other tasks and DMA controller will take care of the data transfers.                      
+
+Let’s have an ADC peripheral unit that produces a new conversion result every 4 microseconds. The CPU has configured a DMA controller to read this new data and store it in RAM memory. The source address for the transfers is always the ADC data register. The destination address is an address in the RAM memory. This destination address is increased by the DMA controller with each consecutive transfer. The ADC indicates to the DMA that new data is available using a dedicated interface. When the DMA detects that new data is available it proceeds by reading the data register of the ADC. The read data is then stored in the DMA FIFO buffer. The DMA controller checks that the memory bus is not busy and then transfers the data from the FIFO buffer to the destination address in the RAM. This concludes a single DMA transfer.
