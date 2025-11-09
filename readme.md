@@ -247,4 +247,7 @@ Let’s have an ADC peripheral unit that produces a new conversion result every 
   <img width="931" height="492" alt="image" src="https://github.com/user-attachments/assets/51dbe38a-121f-408a-95d6-711980d9de19" />
 
 ### DMA Interaction with the CPU
-
+- In STM32, there are two DMA controllers each having 8 streams. All the 8 streams run parallely - Each stream has 8 channels (8 - Requests per stream). 
+- Each stream can have only one channel active a given point. So even though a stream can be mapped to multiple channels, you choose exactly one channel during stream configuration.
+- If there are two chennal requests enabled in a single stream, how does DMA controller choose one over the other? The DMA controller doesn't choose/arbitrate - Firmware tells which is configured.
+- Each DMA stream has an internal buffer that temporarily holds data during transfer - The FIFO buffer is 16 Bytes long.
