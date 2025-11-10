@@ -247,7 +247,27 @@ Let’s have an ADC peripheral unit that produces a new conversion result every 
   <img width="931" height="492" alt="image" src="https://github.com/user-attachments/assets/51dbe38a-121f-408a-95d6-711980d9de19" />
 
 ### DMA Interaction with the CPU
-- In STM32, there are two DMA controllers each having 8 streams. All the 8 streams run parallely - Each stream has 8 channels (8 - Requests per stream). 
-- Each stream can have only one channel active a given point. So even though a stream can be mapped to multiple channels, you choose exactly one channel during stream configuration.
-- If there are two chennal requests enabled in a single stream, how does DMA controller choose one over the other? The DMA controller doesn't choose/arbitrate - Firmware tells which is configured.
-- Each DMA stream has an internal buffer that temporarily holds data during transfer - The FIFO buffer is 16 Bytes long.
+- In STM32, there are two DMA controllers each having 8 streams. All the 8 streams run parallely - Each stream has 8 channels (8 - Requests per stream). Each stream can have only one channel active a given point. So even though a stream can be mapped to multiple channels, you choose exactly one channel during stream configuration.If there are two chennal requests enabled in a single stream, how does DMA controller choose one over the other? The DMA controller doesn't choose/arbitrate - Firmware tells which is configured.Each DMA stream has an internal buffer that temporarily holds data during transfer - The FIFO buffer is 16 Bytes long. Each stream can handle only one transfer configuration at a time, that is either memory - memory / peripheral - memory / memory - pheripheral.
+- The **MODE** of configuration for a stream implies how the transfer is done over time. If the mode is set as **NORMAL MODE**, it is just one single transfer where it stops when the configured length is done. If the mode is set to **DOUBLE BUFFER** , instead of having one memory buffer this mode will have two memory buffers which stores the data alternatively. If the mode is set to **CIRCULAR** DMA wraps around and continues, it never stops.
+The following things need to be configured for the transfer to start - This configuration stays untill it is stopped:
+1. Direction ( memory - memory / peripheral - memory / memory - pheripheral)
+2. Channel   ( which peripheral requests it listens to)
+3. Mode      (Normal, double buffer, circular)
+4. FIFO
+5. SA/DA + size
+
+### Functional Block Diagram of a DMA Controller
+<img width="958" height="711" alt="image" src="https://github.com/user-attachments/assets/8f7b477d-c4a0-40fe-a729-3ace8ba80101" />
+
+- REQ_STR0_CH0 REQ_STR0_CH1 ....  REQ_STR0_CH7 , REQ_STR1_CH0 REQ_STR1_CH1 ....  REQ_STR1_CH7 represent different channels in stream 1. Similarly, the other stream request lines are present int he left most side of the image. If there are multiple requests from the same stream , **SOFTWARE PICKS** one channel from the stream.
+- There is an **ARBITER BLOCK** , this decides which stream gets access to the AHB bus. This decision is taken based on the priority set in software for the stream. If priorities are equal, then hardware priority is considered. 
+- Each stream has a **FIFO Buffer** which is a memory buffer to store data.
+- There is a **DUAL AHB MASTER INTERFACE**, where each stream can talk to memory port and peripheral port simultaneously. There are two AHB master Ports : 1. Memory AHB Master port 2. Peripheral AHB Master Ports. So DMA can read from memory while writing to peripheral in the same cycle — without arbitration between the two buses.
+- The **AHB Slave Programming interface** is where the software writes into DMA registers for configuring the channel/streams.
+
+### DMA Transfer Sequence 
+- DMA reads from Source (Memory/peripheral) [LOADING PHASE]
+- DMA writes into destination (Memory / pheripheral) [STORE PHASE]
+- DMA decrements the counter which indicates the number of transfers left.
+- Who tells DMA to transfer? Hardware triggers the transfer , and the peripheral requests a DMA transfer
+  <img width="951" height="453" alt="image" src="https://github.com/user-attachments/assets/8d54ec3a-c4a2-4170-9e04-e172c00fdc0f" />
