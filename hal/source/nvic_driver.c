@@ -22,7 +22,6 @@ void NVIC_enable_IRQ(uint32_t IRQn){
     uint32_t iser_bit = IRQn%32;
     volatile uint32_t *iser_reg = (uint32_t*)(NVIC_ISER_BASE + (iser_index*4));
     *iser_reg = (1U<<iser_bit);
-    //__enable_irq();
 }
 
 /* NVIC_set_priority_grouping() function is used to set the priority grouping for an application */

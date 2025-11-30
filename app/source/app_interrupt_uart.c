@@ -11,11 +11,11 @@
 extern rx_ready;
 extern rx_data;
 
-void app_address_req_init(){
+void app_uart_init(){
 	USART_Init();
 }
 
-void app_uart_interrupt(){
+void app_uart_interrupt_recv_update(){
 	if(rx_ready){
 		uint8_t ob = rx_data;
 	}
